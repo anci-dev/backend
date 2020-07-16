@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/png/anci/issues"
   },
-  "homepage": "https://github.com/png/anci#readme"
+  "homepage": "https://github.com/png/anci#readme",
+  "scripts": {
+    "start": "node start"
+  }
 }
