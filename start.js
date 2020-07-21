@@ -52,6 +52,11 @@ app.use('/auth', require('./auth'));
 app.use('/logoff', (_, res) => res.redirect("/auth/logoff"));
 
 // Final app preparations
-app.get('/', (req, res) => res.send('Hello World! <a href="/auth/github">Click to login with GitHub</a>'))
+app.get('/', (req, res) => {
+    console.log(req.session.passport ? req.session.passport.user : "no user");
+    if(req.session.passport) {
+        res.send(`Hey there ${req.session.passport.user.profile.displayName}. This is your github info:\n${JSON.stringify(req.session.passport.user)}`);
+    } else res.send('Hello World! <a href="/auth/github">Click to login with GitHub</a>')
+});
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
