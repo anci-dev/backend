@@ -2,7 +2,8 @@
 var express = require('express');
 var session = require('express-session');
 var router = express.Router();
-const passport = require('passport')
+const passport = require('passport');
+const COOKIE = process.env.DOMAIN;
 
 router.get('/logoff', function(req, res) {
 	res.clearCookie(COOKIE)
@@ -12,7 +13,7 @@ router.get('/logoff', function(req, res) {
 router.get('/github', passport.authenticate('github'))
 
 router.get(
-	'/login/github/return',
+	'/github/login/return',
 	passport.authenticate('github', { successRedirect: '/auth/setcookie', failureRedirect: '/' })
 )
 
