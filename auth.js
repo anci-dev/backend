@@ -30,6 +30,10 @@ router.get('/get_token', function(req, res){
 	});
 })
 
+router.get('/get_code', function(req, res) {
+	console.log(req.query);
+});
+
 router.get('/logoff', function(req, res) {
 	res.clearCookie(COOKIE)
 	res.redirect('/')
