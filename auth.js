@@ -20,8 +20,8 @@ router.get('/github/login/return', function(req, res) {
 			res.send(`
 				<script>
 					const opener = window.opener;
-					const data = '` + JSON.stringify(body) + `';
-					opener.postMessage(data, "` + process.env.FRONTEND_DOMAIN + `");
+					const data = '${JSON.stringify(body)}';
+					opener.postMessage(data, "${process.env.FRONTEND_DOMAIN}");
 				</script>
 				`);
 		}
