@@ -21,7 +21,7 @@ router.get('/github/login/return', function(req, res) {
 				<script>
 					const opener = window.opener;
 					const data = '` + JSON.stringify(body) + `';
-					opener.postMessage(data, "http://localhost:19006/");
+					opener.postMessage(data, "` + process.env.FRONTEND_DOMAIN + `");
 				</script>
 				`);
 		}
