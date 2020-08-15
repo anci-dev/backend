@@ -27,7 +27,7 @@ router.get("/repo_status", function(req, res) {
     }).then(function(data) {
         var ids = data.map(item => item.id);
         // get extra repo info from our db
-        request.get({uri:"http://localhost:5000/api/repository", qs:{"repositories": ids}, json: true})
+        request.get({uri:"http://localhost:5000/api/repo", qs:{"repositories": ids}, json: true})
         .then(function(extraRepoData) {
             data = data.map(item => addRepoInfo(item, extraRepoData.repositories));
             res.send(data);
