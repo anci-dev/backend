@@ -10,7 +10,7 @@ app.use(cors({origin: 'http://localhost:19006'}));
 app.use('/auth', require('./auth'));
 
 // For querying and updating the database
-app.use('/db', require('./db'));
+app.use('/api', require('./api'));
 
 // Final app preparations
 app.get('/', (req, res) => {
