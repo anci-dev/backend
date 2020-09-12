@@ -41,4 +41,18 @@ function addUserToDB(userID) {
     });
 }
 
-module.exports = {addUserToDB, getRepositoryInfo, getBuilds};
+function addStripeToUser(userID, stripeCustomerId) {
+    request({
+        uri: `${process.env.DB_API_DOMAIN}api/profile/${userID}/updateUser`,
+        method: "POST",
+        body: {
+            stripeCustomerId: stripeCustomerId
+        },
+        json: true,
+    })
+    .catch(function(err) {
+        console.log("Undable to add a Stripe customer ID to this user.");
+    })
+}
+
+module.exports = {addUserToDB, getRepositoryInfo, getBuilds, addStripeToUser};
