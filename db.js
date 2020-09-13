@@ -29,10 +29,24 @@ function getRepositoryInfo(repositories) {
     });
 }
 
-function addUserToDB(userID) {
-    request({
+function getUser(userID) {
+    return request({
+        uri: `${process.env.DB_API_DOMAIN}api/profile/${userID}`,
+        method: "GET",
+        json: true
+    })
+    .catch(function(err) {
+        console.log("Unable to retrieve user info.");
+    });
+}
+
+function addUserToDB(userID, stripeCustomerID) {
+    return request({
         uri: `${process.env.DB_API_DOMAIN}api/profile/${userID}/createUser`,
         method: "POST",
+        body: {
+            stripeCustomerId: stripeCustomerID,
+        },
         json: true,
     })
     .catch(function(err) {
@@ -41,18 +55,4 @@ function addUserToDB(userID) {
     });
 }
 
-function addStripeToUser(userID, stripeCustomerId) {
-    request({
-        uri: `${process.env.DB_API_DOMAIN}api/profile/${userID}/updateUser`,
-        method: "POST",
-        body: {
-            stripeCustomerId: stripeCustomerId
-        },
-        json: true,
-    })
-    .catch(function(err) {
-        console.log("Undable to add a Stripe customer ID to this user.");
-    })
-}
-
-module.exports = {addUserToDB, getRepositoryInfo, getBuilds, addStripeToUser};
+module.exports = {getUser, addUserToDB, getRepositoryInfo, getBuilds};

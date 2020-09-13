@@ -34,20 +34,6 @@ router.get("/getAllRepos", async function(req, res) {
     res.send(repos);
 });
 
-router.post("/createStripeCustomer", async function(req, res) {
-    console.log(req.body);
-    // include default data that can pull from github
-    // can be changed by the user later if needed
-    var data = {};
-    // combine the following two
-    const user = await github.getUserInfo(req.body.access_token);
-    console.log(user);
-    const newStripeCustomer = await stripe.createNewCustomer(data);
-    console.log(newStripeCustomer);
-
-    db.addStripeToUser(user.id, newStripeCustomer.id);
-});
-
 router.post("/updateStripeCustomer", async function(req, res) {
 
 });

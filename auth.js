@@ -4,6 +4,7 @@ var router = express.Router();
 const request = require('request-promise');
 const github = require('./github');
 const db = require('./db');
+const stripe = require('./stripe');
 
 
 // change path and callback address in github?
@@ -24,8 +25,14 @@ router.get('/github/login/return', async function(req, res) {
 		`);
 
 	// Add user to db in the background
-	const user = await github.getUserInfo(token.access_token);
-	db.addUserToDB(user.id);
+	const githubUser = await github.getUserInfo(token.access_token);
+	const profile = await db.getUser(githubUser.id);
+
+	if (profile.found == 0) {
+		const newStripeCustomer = await stripe.createNewCustomer({});
+		db.addUserToDB(githubUser.id, newStripeCustomer.id);
+		console.log("Added a new user!");
+	}
 });
 
 module.exports = router;
